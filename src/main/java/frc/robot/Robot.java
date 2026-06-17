@@ -4,17 +4,14 @@
 
 package frc.robot;
 
-import frc.robot.Constants;
-
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import org.littletonrobotics.junction.LogFileUtil;
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -34,17 +31,17 @@ public class Robot extends LoggedRobot {
     Logger.recordMetadata("ProjectName", "CRW-7742-SwerveTemplate");
 
     switch (Constants.getMode()) {
-        case REAL -> {
-            Logger.addDataReceiver(new WPILOGWriter());
-            Logger.addDataReceiver(new NT4Publisher());
-        }
-        case SIM -> Logger.addDataReceiver(new NT4Publisher());
-        case REPLAY -> {
-            setUseTiming(false);
-            String logPath = LogFileUtil.findReplayLog();
-            Logger.setReplaySource(new WPILOGReader(logPath));
-            Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
-        }
+      case REAL -> {
+        Logger.addDataReceiver(new WPILOGWriter());
+        Logger.addDataReceiver(new NT4Publisher());
+      }
+      case SIM -> Logger.addDataReceiver(new NT4Publisher());
+      case REPLAY -> {
+        setUseTiming(false);
+        String logPath = LogFileUtil.findReplayLog();
+        Logger.setReplaySource(new WPILOGReader(logPath));
+        Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
+      }
     }
 
     Logger.start();

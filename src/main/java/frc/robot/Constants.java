@@ -18,7 +18,14 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
-  public enum Mode { REAL, SIM, REPLAY }
+
+  public static final double loopPeriodSecs = 0.02;
+
+  public enum Mode {
+    REAL,
+    SIM,
+    REPLAY
+  }
 
   public static final Mode simMode = Mode.SIM;
 
