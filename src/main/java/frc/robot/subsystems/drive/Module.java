@@ -1,13 +1,13 @@
 package frc.robot.subsystems.drive;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import org.littletonrobotics.junction.Logger;
-import edu.wpi.first.math.filter.Debouncer;
 
 public class Module {
   private final ModuleIO io;
@@ -16,7 +16,6 @@ public class Module {
 
   private final SimpleMotorFeedforward ffModel =
       new SimpleMotorFeedforward(DriveConstants.driveKs, DriveConstants.driveKv);
-
 
   private final Debouncer driveConnectedDebouncer =
       new Debouncer(0.5, Debouncer.DebounceType.kFalling);

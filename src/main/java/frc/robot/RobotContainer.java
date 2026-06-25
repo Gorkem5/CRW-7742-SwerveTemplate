@@ -5,12 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIONavX;
+import frc.robot.subsystems.drive.ModuleIOSim;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,13 +24,17 @@ public class RobotContainer {
   private final Drive drive;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandPS4Controller controller = new CommandPS4Controller(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive =
-        new Drive(Constants.getMode() == Constants.Mode.REAL ? new GyroIONavX() : new GyroIO() {});
+        new Drive(
+            Constants.getMode() == Constants.Mode.REAL ? new GyroIONavX() : new GyroIO() {},
+            new ModuleIOSim(),
+            new ModuleIOSim(),
+            new ModuleIOSim(),
+            new ModuleIOSim());
     // Configure the trigger bindings
     configureBindings();
   }
@@ -43,7 +48,15 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
-  private void configureBindings() {}
+  private void configureBindings() {
+    drive.setDefaultCommand(
+        DriveCommands.joystickDrive(
+            drive,
+            () -> -controller.getLeftY(), // forward = stick up = -Y
+            () -> -controller.getLeftX(), // left = -X
+            () -> -controller.getRightX(), // CCW rotation = -X
+            () -> false));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

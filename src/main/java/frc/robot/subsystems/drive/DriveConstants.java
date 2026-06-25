@@ -1,8 +1,15 @@
 package frc.robot.subsystems.drive;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.Constants;
 
 public final class DriveConstants {
+
+  public static final double TrackWidthXMeters = 0.53975;
+  public static final double TrackWidthYMeters = 0.53975;
+
+  public static final double maxSpeedMetersPerSec = 4;
+
   public static final double turnReduction = 287.0 / 11.0; // 26.09:1
   public static final double driveReduction = 6.1224;
   public static final double wheelRadiusMeters = 0.0508;
@@ -14,6 +21,14 @@ public final class DriveConstants {
   public static final double driveKv;
   public static final double turnKp;
   public static final double turnKd;
+
+  public static final Translation2d[] moduleTranslations =
+      new Translation2d[] {
+        new Translation2d(TrackWidthXMeters / 2.0, TrackWidthYMeters / 2.0), // FL
+        new Translation2d(TrackWidthXMeters / 2.0, -TrackWidthYMeters / 2.0), // FR
+        new Translation2d(-TrackWidthXMeters / 2.0, TrackWidthYMeters / 2.0), // BL
+        new Translation2d(-TrackWidthXMeters / 2.0, -TrackWidthYMeters / 2.0) // BR
+      };
 
   static {
     switch (Constants.getMode()) {

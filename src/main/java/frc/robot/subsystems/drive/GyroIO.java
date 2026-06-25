@@ -16,6 +16,9 @@ public interface GyroIO {
     public double accelerationX = 0.0; // Includes acceleration due to gravity, units "g"
     public double accelerationY = 0.0;
     public double accelerationZ = 0.0;
+
+    public double[] odometryYawTimestamps = new double[] {};
+    public Rotation2d[] odometryYawPositions = new Rotation2d[] {};
   }
 
   public static class GyroIOOutputs {}
