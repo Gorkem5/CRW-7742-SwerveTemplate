@@ -12,7 +12,7 @@ import frc.robot.Constants;
 public class ModuleIOSim implements ModuleIO {
   private static final DCMotor driveMotorModel = DCMotor.getKrakenX60(1);
   private static final DCMotor turnMotorModel = DCMotor.getKrakenX44(1);
-  
+
   private final DCMotorSim driveSim =
       new DCMotorSim(
           LinearSystemId.createDCMotorSystem(
@@ -27,8 +27,8 @@ public class ModuleIOSim implements ModuleIO {
 
   private boolean driveClosedLoop = false;
   private boolean turnClosedLoop = false;
-  private final PIDController driveController = new PIDController(DriveConstants.driveSimP, 0, 0);
-  private final PIDController turnController = new PIDController(DriveConstants.turnSimP, 0, 0);
+  private final PIDController driveController = new PIDController(0, 0, 0);
+  private final PIDController turnController = new PIDController(0, 0, 0);
   private double driveFFVolts = 0.0;
   private double driveAppliedVolts = 0.0;
   private double turnAppliedVolts = 0.0;
