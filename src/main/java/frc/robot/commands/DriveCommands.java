@@ -44,7 +44,7 @@ public class DriveCommands {
               new ChassisSpeeds(
                   linear.getX() * DriveConstants.maxSpeedMetersPerSec,
                   linear.getY() * DriveConstants.maxSpeedMetersPerSec,
-                  omega * DriveConstants.maxSpeedMetersPerSec);
+                  omega * DriveConstants.maxAngularSpeedRadPerSec);
 
           drive.runVelocity(
               robotRelative.getAsBoolean()

@@ -9,6 +9,7 @@ public final class DriveConstants {
   public static final double TrackWidthYMeters = 0.53975;
 
   public static final double maxSpeedMetersPerSec = 4;
+  public static final double maxAngularSpeedRadPerSec = 2 * Math.PI;
 
   public static final double turnReduction = 287.0 / 11.0; // 26.09:1
   public static final double driveReduction = 6.1224;
