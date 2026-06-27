@@ -39,6 +39,7 @@ public class ModuleIOSim implements ModuleIO {
 
   @Override
   public void updateInputs(ModuleIOInputs inputs) {
+    Rotation2d turnAngle = new Rotation2d(MathUtil.angleModulus(turnSim.getAngularPositionRad()));
 
     if (driveClosedLoop) {
       driveAppliedVolts =
@@ -47,7 +48,7 @@ public class ModuleIOSim implements ModuleIO {
       driveController.reset();
     }
     if (turnClosedLoop) {
-      turnAppliedVolts = turnController.calculate(turnSim.getAngularPositionRad());
+      turnAppliedVolts = turnController.calculate(turnAngle.getRadians());
     } else {
       turnController.reset();
     }
@@ -65,16 +66,15 @@ public class ModuleIOSim implements ModuleIO {
 
     inputs.turnConnected = true;
     inputs.encoderConnected = true;
-    inputs.turnAbsolutePositionRads = new Rotation2d(turnSim.getAngularPositionRad());
-    inputs.turnPositionRads = new Rotation2d(turnSim.getAngularPositionRad());
+    inputs.turnAbsolutePositionRads = turnAngle;
+    inputs.turnPositionRads = turnAngle;
     inputs.turnVelocityRadsPerSec = turnSim.getAngularVelocityRadPerSec();
     inputs.turnAppliedVolts = turnAppliedVolts;
     inputs.turnSupplyCurrentAmps = Math.abs(turnSim.getCurrentDrawAmps());
 
     inputs.odometryTimestamps = new double[] {Timer.getFPGATimestamp()};
     inputs.odometryDrivePositionsRad = new double[] {driveSim.getAngularPositionRad()};
-    inputs.odometryTurnPositions =
-        new Rotation2d[] {new Rotation2d(turnSim.getAngularPositionRad())};
+    inputs.odometryTurnPositions = new Rotation2d[] {turnAngle};
   }
 
   @Override
